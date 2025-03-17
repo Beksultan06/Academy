@@ -1,10 +1,6 @@
 from modeltranslation.translator import register, TranslationOptions
 from app.AboutAcademy.models import *
 
-@register(Name)
-class NameTranslationOptions(TranslationOptions):
-    fields = ('title',)
-
 @register(AboutUs)
 class AboutUsTranslationOption(TranslationOptions):
     fields = ('title', 'description', 'title_phone_number', 'phone_number', 'title_adress', 'adress', 'title_operating_mode', 'operating_mode', 'link_map')
@@ -19,16 +15,11 @@ class MissionTranslationOption(TranslationOptions):
 
 @register(Document)
 class DocumentTranslationOption(TranslationOptions):
-    fields = ('title',)
-
+    fields = ('title','file')
 
 @register(Achievements)
-class AchievementsTranslationOptions(TranslationOptions):
-    fields = (
-        'title',
-        'description',
-    )
-
+class AchievementsTranslationOption(TranslationOptions):
+    fields = ('title','description')
 
 @register(History)
 class HistoryTranslationOption(TranslationOptions):

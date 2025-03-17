@@ -1,9 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions, register
-from app.activity.models import *
-
-@register(Name)
-class NameTranslationOptions(TranslationOptions):
-    fields = ('title',)
+from app.activity.models import Progress, AllProgress, Educational
 
 @register(Progress)
 class ProgressTranslationOptions(TranslationOptions):
@@ -11,7 +7,7 @@ class ProgressTranslationOptions(TranslationOptions):
 
 @register(AllProgress)
 class AllProgressTranslationOptions(TranslationOptions):  
-    fields = ('title', 'awarded', 'achieve', 'location', 'date')
+    fields = ('awarded', 'achieve', 'location', 'date')
     
 @register(Educational)
 class EducationalTranslationOptions(TranslationOptions):  

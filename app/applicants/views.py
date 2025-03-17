@@ -3,12 +3,6 @@ from rest_framework.viewsets import GenericViewSet
 from .models import *
 from .serializers import *
 
-
-class NameAPI(GenericViewSet,
-                mixins.ListModelMixin):
-    queryset = Name.objects.all()
-    serializer_class = NameSerializers
-    
 class AcademicAPI(GenericViewSet,
                  mixins.ListModelMixin):
     queryset = Academic.objects.all()

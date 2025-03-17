@@ -1,14 +1,10 @@
 from django.shortcuts import render
 from rest_framework import mixins
-from app.management.serializers import *
-from app.management.models import *
+from app.management.serializers import RectorSerializer, ScientWorksRectorSerializer, HR_departmentSerializers, VacanciesSerializer, RectorObjectsTitleSerializer, ScientWorksRectorObjectsSerializer, VacanciesObjectsSerializer, HR_departmentObjectsSerializer
+from app.management.models import Rector, ScientWorksRector, HR_department, Vacancies, RectorObjectsTitle, ScientWorksRectorObjects, VacanciesObjects, HR_departmentObjects
 from rest_framework.viewsets import GenericViewSet
 
 # Create your views here.
-class NameAPI(GenericViewSet,
-                mixins.ListModelMixin):
-    queryset = Name.objects.all()
-    serializer_class = NameSerializers
 
 class RectorViewSet(GenericViewSet,
                     mixins.ListModelMixin,

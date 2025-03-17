@@ -6,17 +6,11 @@ from rest_framework import mixins
 
 # Create your views here.
 
-class NameAPI(GenericViewSet,
-                mixins.ListModelMixin):
-    queryset = Name.objects.all()
-    serializer_class = NameSerializers
-    
 class WelcomePageViewSet(GenericViewSet,
                          mixins.ListModelMixin,
                          mixins.RetrieveModelMixin):
     queryset = WelcomePage.objects.all()
     serializer_class = WelcomePageSerializer
-
 
 class EducationMiddleViewSet(GenericViewSet,
                             mixins.ListModelMixin,
@@ -57,7 +51,9 @@ class EducationSeniorViewSet(GenericViewSet,
 class EducationDoctoraViewSet(GenericViewSet, mixins.ListModelMixin):
     queryset = EducationDoctora.objects.all()
     serializer_class = EducationDoctoraSerializer
+
     
+
 class WelcomePageObjectsViewSet(GenericViewSet,
                                  mixins.ListModelMixin,
                                  mixins.RetrieveModelMixin):
@@ -69,24 +65,3 @@ class EducationMiddleObjectsViewSet(GenericViewSet,
                                     mixins.RetrieveModelMixin):
     queryset = EducationMiddleObjects.objects.all()
     serializer_class = EducationMiddleObjectSerializer
-    
-    
-class EducationDoctoraObjectsViewSet(GenericViewSet,
-                                     mixins.ListModelMixin,
-                                     mixins.RetrieveModelMixin):
-    queryset = EducationDoctoraObjects.objects.all()
-    serializer_class = EducationDoctoraObjectsSerializer
-    
-class EducationProObjectsViewSet(GenericViewSet,
-                                 mixins.ListModelMixin,
-                                 mixins.RetrieveModelMixin):
-    queryset = EducationProObjects.objects.all()
-    serializer_class = EducationProObjectsSerializer
-    
-
-class EducationSeniorObjectsViewSet(GenericViewSet,
-                                     mixins.ListModelMixin,
-                                     mixins.RetrieveModelMixin):
-    queryset = EducationSeniorObjects.objects.all()
-    serializer_class = EducationSeniorObjectsSerializer
-    

@@ -1,21 +1,7 @@
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
-from .models import *
-from .serializers import *
-
-
-
-class ScientificJournalsObjectAPI(GenericViewSet,
-                 mixins.ListModelMixin):
-    queryset = ScientificJournalsObject.objects.all()
-    serializer_class = ScientificJournalsObjectSerializer
-
-
-class NameAPI(GenericViewSet,
-                mixins.ListModelMixin):
-    queryset = Name.objects.all()
-    serializer_class = NameSerializers
-    
+from .models import AcademicCouncil, ScientificJournals, CenterEducation
+from .serializers import AcademicCouncilSerializer, ScientificJournalsSerializer, CenterEducationSerializer
 
 class AcademicCouncilAPI(GenericViewSet,
                  mixins.ListModelMixin):

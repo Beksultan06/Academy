@@ -3,106 +3,68 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 
-class Name(models.Model):
-    title = models.CharField(max_length=225,
-    verbose_name = 'Студенты')
-    
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Students name'
-        verbose_name_plural = 'Students name'
-
-class Parliament(models.Model):
-    students_full_name = RichTextField(
+class Parliament (models.Model):
+    title = RichTextField(
         max_length=255,
-        verbose_name="ФИО студента" 
+        verbose_name="Заголовок"
     )
     description = RichTextField(
-        verbose_name="Описание студента"
+        verbose_name="Описание"
     )
     images = models.ImageField(
         upload_to="image/",
-        verbose_name="Фотография студента"
+        verbose_name="Фотография"
     )
 
     def __str__(self):
-        return self.students_full_name
+        return self.title
     
     class Meta:
         verbose_name = 'Студенчекий Парламент'
         verbose_name_plural = 'Студенчекий Парламент'
 
-class Active_Students(models.Model):
-    name = models.CharField(
+class Active (models.Model):
+    title =RichTextField(
         max_length=255,
-        verbose_name="ФИО студента"
+        verbose_name="Заголовок"
     )
-    
     description = RichTextField(
-        verbose_name="Первый обзац описания студента"
+        verbose_name="Описание"
     )
-
-    descriptions = RichTextField(verbose_name="Второй обзац описания студента")
-
     images = models.ImageField(
         upload_to="image/",
-        verbose_name="Фотография студента",
-        blank=True, null=True
+        verbose_name="Фотография"
     )
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = 'Активные Студенты'
-        verbose_name_plural = 'Активные Студенты'
-
-class StudentWork(models.Model):
-    student = models.ForeignKey(
-        Active_Students, 
-        on_delete=models.CASCADE, 
-        related_name="work"
-    )
-    name = models.CharField(
-        max_length=255,
-        verbose_name="Название проекта"
-    )
-    description = models.TextField(
-        verbose_name="Описание проекта"
-    )
-    img = models.ImageField(
-        upload_to="image/work/",
-        verbose_name="Изображение проекта",
-        blank=True, null=True
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Работы студентов'
-        verbose_name_plural = 'Работы студентов'
-        
-
-class Active_StudentsAbout(models.Model):
-    title = models.CharField(max_length=100,verbose_name="Заголовок информации студента")
-    description = RichTextField(verbose_name="Описание информации студента")
-    images = models.ImageField(upload_to="image/", verbose_name="Фотография", blank=True, null=True)
 
     def __str__(self):
         return self.title
     
     class Meta:
-        verbose_name = 'Дополнительная информация о активных студентах'
-        verbose_name_plural = 'Дополнительные информации о активных студентах'
-
+        verbose_name = 'Активные Студенты'
+        verbose_name_plural = 'Активные Студенты'
 
 class Hostel(models.Model):
-    title = models.CharField(max_length=100, verbose_name="Заголовок")
-    description = RichTextField(verbose_name="Описание")
+    title = RichTextField(verbose_name="Заголовок страницы")
+    description = RichTextField(verbose_name="Описание страницы")
+
+    accommodation_title = RichTextField(verbose_name="Заголовок для условий проживания")
+    accommodation_text = RichTextField(verbose_name="Описание условий проживания")
+
+    spiritual_title = RichTextField(verbose_name="Заголовок для духовной атмосферы")
+    spiritual_text = RichTextField(verbose_name="Описание духовной атмосферы")
+
+
+    security_title = RichTextField(verbose_name="Заголовок для безопасности и порядка")
+    security_text = RichTextField(verbose_name="Описание безопасности и порядка")
+
+ 
+    student_life_title = RichTextField(verbose_name="Заголовок для студенческого быта")
+    student_life_text = RichTextField(verbose_name="Описание студенческого быта")
+
+    reviews_title = RichTextField(verbose_name="Заголовок для отзывов студентов")
+    reviews_text = RichTextField(verbose_name="Описание отзывов студентов")
+
+    images = models.ImageField(upload_to='hostel_photos/', blank=True, null=True, verbose_name="Фотографии общежития")
 
     def __str__(self):
         return self.title
@@ -111,69 +73,31 @@ class Hostel(models.Model):
         verbose_name = "Студенческое общежитие"
         verbose_name_plural = "Студенческое общежитие"
 
-class HostelObject(models.Model):
-    hostel = models.ForeignKey(Hostel, related_name='images', on_delete=models.CASCADE, verbose_name="Общежитие")
-    images = models.ImageField(upload_to='hostel_photos/', blank=True, null=True, verbose_name="Фотографии общежития")
-
-    def __str__(self):
-        return self.hostel.title
-    
-    class Meta:
-        verbose_name = 'Изображение общежития слайдер'
-        verbose_name_plural = 'Изображения общежития слайдер'
-
-        
-class Portal(models.Model):
+class StudentLife(models.Model):
     title = RichTextField(verbose_name="Заголовок страницы")
     description = RichTextField(verbose_name="Описание страницы")
-    contacts = RichTextField(verbose_name="Контакты")
+
+    education_title = RichTextField(verbose_name="Заголовок для образования и науки")
+    education_text = RichTextField(verbose_name="Описание для образования и науки")
+
+    spiritual_development_title = RichTextField(verbose_name="Заголовок для духовного развития")
+    spiritual_development_text = RichTextField(verbose_name="Описание духовного развития")
+
+    cultural_events_title = RichTextField(verbose_name="Заголовок для культурных и общественных мероприятий")
+    cultural_events_text = RichTextField(verbose_name="Описание культурных и общественных мероприятий")
+
+
+    sports_title = RichTextField(verbose_name="Заголовок для спорта и здорового образа жизни")
+    sports_text = RichTextField(verbose_name="Описание спорта и здорового образа жизни")
+
+    reviews_title = RichTextField(verbose_name="Заголовок для отзывов студентов")
+    reviews_text = RichTextField(verbose_name="Описание отзывов студентов")
+
+    images = models.ImageField(upload_to='student_life_photos/', blank=True, null=True, verbose_name="Фотографии студенческой жизни")
 
     def __str__(self):
         return self.title
-    
-    class Meta:
-        verbose_name = "Портал"
-        verbose_name_plural = "Портал"
-
-class StudentsLife(models.Model):
-    title = models.CharField(max_length=100, verbose_name="Заголовок")
-    description = RichTextField(verbose_name="Описание")
-
-    def __str__(self):
-        return self.title
 
     class Meta:
-        verbose_name = "Студенческая жизнь"
-        verbose_name_plural = "Студенческии жизни"
-
-class StudentsLifeObject(models.Model):
-    hostel = models.ForeignKey(StudentsLife, on_delete=models.CASCADE, verbose_name="Общежитие")
-    images = models.ImageField(upload_to='hostel_photos/', blank=True, null=True, verbose_name="Фотографии жизни студентов")
-
-    def __str__(self):
-        return self.hostel.title
-    
-    class Meta:
-        verbose_name = 'Изображение жизни студентов слайдер'
-        verbose_name_plural = 'Изображения жизни студентов слайдер'
-
-class ListPages(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'Список страниц'
-        verbose_name_plural = 'Список страниц'
-
-class ListPagesObject(models.Model):
-    list_pages = models.ForeignKey(ListPages, on_delete=models.CASCADE,verbose_name='Список страниц')
-    two_title = models.CharField(max_length=100,verbose_name='Под заголовок')
-
-    def __str__(self):
-        return str(self.list_pages)
-    
-    class Meta:
-        verbose_name = 'Под заголовок для списка страниц'
-        verbose_name_plural = 'Под заголовки для списка страниц'
+        verbose_name = "Студенческая жизнь в академии"
+        verbose_name_plural = "Студенческая жизнь в академии"

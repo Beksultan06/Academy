@@ -1,18 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
-class Name(models.Model):
-    title = models.CharField(max_length=225,
-    verbose_name = 'Деятельность')
-    
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'Activity name'
-        verbose_name_plural = 'Activity name'
-
 class Progress(models.Model):
     title = models.CharField(
         max_length=255,
@@ -31,10 +19,6 @@ class Progress(models.Model):
         verbose_name_plural = "Достижения"
         
 class AllProgress(models.Model):
-    title = models.CharField(
-        max_length=255,
-        verbose_name="Заголовок"
-        )
     date = models.CharField(
         max_length=255,
         verbose_name="Дата"

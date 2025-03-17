@@ -3,11 +3,6 @@ from .models import *
 from . translation import *
 from modeltranslation.admin import TranslationAdmin
 
-class NameAdmin(TranslationAdmin):
-    fields = ('title',)
-
-admin.site.register(Name, NameAdmin)
-
 class AcademicAdmin(TranslationAdmin):
     fieldsets = (
         ('Русская версия', {

@@ -4,11 +4,7 @@ from app.activity.serializers import *
 from app.activity.models import *
 from rest_framework.viewsets import GenericViewSet
 
-class NameAPI(GenericViewSet,
-                mixins.ListModelMixin):
-    queryset = Name.objects.all()
-    serializer_class = NameSerializers
-    
+
 class ProgressViewSet(GenericViewSet, mixins.ListModelMixin):
     queryset = Progress.objects.all()
     serializer_class = ProgressSerializer

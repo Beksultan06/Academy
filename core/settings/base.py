@@ -12,9 +12,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 #SECRET_KEY = os.environ.get("SECRET_KEY")
 SECRET_KEY = 'django-insecure-6hsivhlmq8-fv4$0hy9&_^pcjsp)o*f1poic6eegmzhb@#1ht5'
-
 ALLOWED_HOSTS = ['*']
-
 if DEBUG:
     try:
         from .development import *

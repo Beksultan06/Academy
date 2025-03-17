@@ -1,9 +1,8 @@
 from django.urls import path
-from app.management.views import *
+from app.management.views import RectorViewSet, ScientWorksRectorViewSet, HR_departmentViewSet, VacanciesViewSet, RectorObjectsTitleViewSet, VacanciesObjectsViewSet, HR_departmentObjectsViewSet, ScientWorksRectorObjectsViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r'name', NameAPI, basename='name')
 router.register(r'rector', RectorViewSet, basename="rector")
 router.register(r'scientworks-rector', ScientWorksRectorViewSet, basename="scientworks-rector")
 router.register(r'hr-department', HR_departmentViewSet, basename="hr-department")
@@ -22,7 +21,6 @@ urlpatterns = [
     path('vacancies-objects/<int:pk>/', VacanciesObjectsViewSet.as_view({'get': 'retrieve'}), name='news_detail'),
     path('hr-department-objects/<int:pk>/', HR_departmentObjectsViewSet.as_view({'get': 'retrieve'}), name='news_detail'),
     path('scientworks-rector-objects/<int:pk>/', ScientWorksRectorObjectsViewSet.as_view({'get': 'retrieve'}), name='news_detail'), 
-    path('base', NameAPI.as_view, name='names'),
 ]
 
 urlpatterns += router.urls
