@@ -4,6 +4,14 @@ from app.AboutAcademy.translation import *
 from modeltranslation.admin import TranslationAdmin
 from django.forms import ModelForm, BaseInlineFormSet
 # Register your models here.
+
+class NameAdmin(TranslationAdmin):
+    fields = ('title',)
+
+admin.site.register(Name, NameAdmin)
+
+
+
 class AboutUsAdmin(TranslationAdmin):
     fieldsets = (
         ('Русская версия', {

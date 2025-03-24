@@ -1,13 +1,38 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-from app.students.models import Parliament, Active, Hostel, StudentLife
+from app.students.models import *
 from app.students.translation import *  
+from django.forms.models import BaseInlineFormSet
+
+class NameAdmin(TranslationAdmin):
+    fields = ('title',)
+
+admin.site.register(Name, NameAdmin)
 
 class ParliamentAdmin(TranslationAdmin):
     fieldsets = (
         ('Основное', {
             'fields': ('images',),
         }),
+        ('Русская версия', {
+            'fields': ('students_full_name_ru', 'description_ru'),
+        }),
+        ('Английская версия', {
+            'fields': ('students_full_name_en', 'description_en'),
+        }),
+        ('Кыргызская версия', {
+            'fields': ('students_full_name_ky', 'description_ky'),
+        }),
+        ('Турецкая версия', {
+            'fields': ('students_full_name_tr', 'description_tr'),
+        }),
+        ('Арабская версия', {
+            'fields': ('students_full_name_ar', 'description_ar'),
+        }),
+    )
+
+class PortalAdmin(TranslationAdmin):
+    fieldsets = (
         ('Русская версия', {
             'fields': ('title_ru', 'description_ru'),
         }),
@@ -27,9 +52,48 @@ class ParliamentAdmin(TranslationAdmin):
 
 class ActiveAdmin(TranslationAdmin):
     fieldsets = (
-        ('Основное', {
+        ('Фотография', {
             'fields': ('images',),
         }),
+        ('Русская версия', {
+            'fields': ('students_full_name_ru', 'description_ru'),
+        }),
+        ('Английская версия', {
+            'fields': ('students_full_name_en', 'description_en'),
+        }),
+        ('Кыргызская версия', {
+            'fields': ('students_full_name_ky', 'description_ky'),
+        }),
+        ('Турецкая версия', {
+            'fields': ('students_full_name_tr', 'description_tr'),
+        }),
+        ('Арабская версия', {
+            'fields': ('students_full_name_ar', 'description_ar'),
+        }),
+    )
+
+class HostelObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            if 'images' in form.fields:
+                form.fields['images'].widget.attrs.update({'style': 'display:none;'})
+                form.fields['images'].required = False
+
+class HostelObjectInline(admin.TabularInline):
+    model = HostelObject
+    formset = HostelObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
+
+class HostelAdmin(TranslationAdmin):
+    fieldsets = (
         ('Русская версия', {
             'fields': ('title_ru', 'description_ru'),
         }),
@@ -46,72 +110,112 @@ class ActiveAdmin(TranslationAdmin):
             'fields': ('title_ar', 'description_ar'),
         }),
     )
+    inlines = [HostelObjectInline]
 
-class HostelAdmin(TranslationAdmin):
-    fieldsets = (
-        ('Основное', {
-            'fields': ('images',),
-        }),
-        ('Русская версия', {
-            'fields': ('title_ru', 'description_ru', 'accommodation_title_ru', 'accommodation_text_ru', 
-                       'spiritual_title_ru', 'spiritual_text_ru', 'security_title_ru', 'security_text_ru', 
-                       'student_life_title_ru', 'student_life_text_ru', 'reviews_title_ru', 'reviews_text_ru'),
-        }),
-        ('Английская версия', {
-            'fields': ('title_en', 'description_en', 'accommodation_title_en', 'accommodation_text_en',
-                       'spiritual_title_en', 'spiritual_text_en', 'security_title_en', 'security_text_en',
-                       'student_life_title_en', 'student_life_text_en', 'reviews_title_en', 'reviews_text_en'),
-        }),
-        ('Кыргызская версия', {
-            'fields': ('title_ky', 'description_ky', 'accommodation_title_ky', 'accommodation_text_ky',
-                       'spiritual_title_ky', 'spiritual_text_ky', 'security_title_ky', 'security_text_ky',
-                       'student_life_title_ky', 'student_life_text_ky', 'reviews_title_ky', 'reviews_text_ky'),
-        }),
-        ('Турецкая версия', {
-            'fields': ('title_tr', 'description_tr', 'accommodation_title_tr', 'accommodation_text_tr',
-                       'spiritual_title_tr', 'spiritual_text_tr', 'security_title_tr', 'security_text_tr',
-                       'student_life_title_tr', 'student_life_text_tr', 'reviews_title_tr', 'reviews_text_tr'),
-        }),
-        ('Арабская версия', {
-            'fields': ('title_ar', 'description_ar', 'accommodation_title_ar', 'accommodation_text_ar',
-                       'spiritual_title_ar', 'spiritual_text_ar', 'security_title_ar', 'security_text_ar',
-                       'student_life_title_ar', 'student_life_text_ar', 'reviews_title_ar', 'reviews_text_ar'),
-        }),
-    )
+class StudentLifeObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            if 'images' in form.fields:
+                form.fields['images'].widget.attrs.update({'style': 'display:none;'})
+                form.fields['images'].required = False
+
+class StudentLifeObjectInline(admin.TabularInline):
+    model = StudentsLifeObject
+    formset = StudentLifeObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
 
 class StudentLifeAdmin(TranslationAdmin):
     fieldsets = (
-        ('Основное', {
-            'fields': ('images',),
-        }),
         ('Русская версия', {
-            'fields': ('title_ru', 'description_ru', 'education_title_ru', 'education_text_ru',
-                       'spiritual_development_title_ru', 'spiritual_development_text_ru', 'cultural_events_title_ru', 
-                       'cultural_events_text_ru', 'sports_title_ru', 'sports_text_ru', 'reviews_title_ru', 'reviews_text_ru'),
+            'fields': ('title_ru', 'description_ru'),
         }),
         ('Английская версия', {
-            'fields': ('title_en', 'description_en', 'education_title_en', 'education_text_en',
-                       'spiritual_development_title_en', 'spiritual_development_text_en', 'cultural_events_title_en', 
-                       'cultural_events_text_en', 'sports_title_en', 'sports_text_en', 'reviews_title_en', 'reviews_text_en'),
+            'fields': ('title_en', 'description_en'),
         }),
         ('Кыргызская версия', {
-            'fields': ('title_ky', 'description_ky', 'education_title_ky', 'education_text_ky',
-                       'spiritual_development_title_ky', 'spiritual_development_text_ky', 'cultural_events_title_ky', 
-                       'cultural_events_text_ky', 'sports_title_ky', 'sports_text_ky', 'reviews_title_ky', 'reviews_text_ky'),
+            'fields': ('title_ky', 'description_ky'),
         }),
         ('Турецкая версия', {
-            'fields': ('title_tr', 'description_tr', 'education_title_tr', 'education_text_tr',
-                       'spiritual_development_title_tr', 'spiritual_development_text_tr', 'cultural_events_title_tr', 
-                       'cultural_events_text_tr', 'sports_title_tr', 'sports_text_tr', 'reviews_title_tr', 'reviews_text_tr'),
+            'fields': ('title_tr', 'description_tr'),
         }),
         ('Арабская версия', {
-            'fields': ('title_ar', 'description_ar', 'education_title_ar', 'education_text_ar',
-                       'spiritual_development_title_ar', 'spiritual_development_text_ar', 'cultural_events_title_ar', 
-                       'cultural_events_text_ar', 'sports_title_ar', 'sports_text_ar', 'reviews_title_ar', 'reviews_text_ar'),
+            'fields': ('title_ar', 'description_ar'),
+        }),
+    )
+    inlines = [StudentLifeObjectInline]
+
+class ListPagesObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            for lang in ['ru', 'ky', 'en', 'ar', 'tr']:
+                field_name = f'two_title_{lang}'
+                if field_name in form.fields:
+                    form.fields[field_name].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+                    form.fields[field_name].required = False
+
+
+class ListPagesObjectInline(admin.TabularInline):
+    model = ListPagesObject 
+    formset = ListPagesObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
+
+    def get_fieldsets(self, request, obj=None):
+        return (
+        ('Русская версия', {
+            'fields': ['two_title_ru'],
+        }),
+        ('Кыргызская версия', {
+            'fields': ['two_title_ky'],
+        }),
+        ('Английский версия', {
+            'fields': ['two_title_en'],
+        }),
+        ('Арабский версия', {
+            'fields': ['two_title_ar'],
+        }),
+        ('Турецкий версия', {
+            'fields': ['two_title_tr'],
         }),
     )
 
-admin.site.register(Parliament, ParliamentAdmin)
-admin.site.register(Active, ActiveAdmin)
+class ListPagesAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Русская версия', {
+            'fields': ['title_ru'],
+        }),
+        ('Кыргызская версия', {
+            'fields': ['title_ky'],
+        }),
+        ('Английский версия', {
+            'fields': ['title_en'],
+        }),
+        ('Арабский версия', {
+            'fields': ['title_ar'],
+        }),
+        ('Турецкий версия', {
+            'fields': ['title_tr'],
+        }),
+    )
+    inlines = [ListPagesObjectInline] 
+
+admin.site.register(ListPages, ListPagesAdmin)
+admin.site.register(StudentsLife, StudentLifeAdmin)
 admin.site.register(Hostel, HostelAdmin)
-admin.site.register(StudentLife, StudentLifeAdmin)
+admin.site.register(Parliament, ParliamentAdmin)
+admin.site.register(Active_Students, ActiveAdmin)

@@ -1,7 +1,12 @@
 from django.contrib import admin
-from app.activity.models import Progress, AllProgress, Educational
+from app.activity.models import *
 from modeltranslation.admin import TranslationAdmin
 from . translations import *
+
+class NameAdmin(TranslationAdmin):
+    fields = ('title',)
+
+admin.site.register(Name, NameAdmin)
 
 class ProgressAdmin(TranslationAdmin):
     fieldsets = (

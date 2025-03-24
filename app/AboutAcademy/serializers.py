@@ -5,6 +5,14 @@ from app.AboutAcademy.models import *
 from django.conf import settings
 from django.urls import reverse
 
+
+class NameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Name
+        fields = ('id', 'title')
+        ref_name = 'AboutAcademyNameSerializer' 
+
+        
 class AboutUsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AboutUs
@@ -34,8 +42,6 @@ class DocumentSerializer(serializers.ModelSerializer):
         model = Document
         fields = ['id', 'file', 'open_url', 'download_url']
 
-from rest_framework import serializers
-from .models import Document
 
 class DocumentSerializer(serializers.ModelSerializer):
     open_url = serializers.SerializerMethodField()
@@ -92,7 +98,7 @@ class ListPagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListPages
         fields = ['id', 'title', 'two_title']
+        ref_name = 'AboutAcademyListPagesSerializer'  
 
     def get_two_title(self, obj):
         return list(obj.listpagesobject_set.values_list('two_title', flat=True))
-    

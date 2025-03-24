@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 from app.AboutAcademy.views import *
 
 router = DefaultRouter()
+router.register(r'name', NameAPI, basename='name')
 router.register(r'/aboutus', AboutUsAPI, basename='aboutus')
 router.register(r'/devstrategy', DevStrategyAPI, basename='devstrategy')
 router.register(r'/devstrategyPhoto', DevStrategyPhotoAPI, basename='devstrategyphoto')

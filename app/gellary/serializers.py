@@ -5,3 +5,4 @@ class PhotosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photos
         fields = ['id','photo', 'date'] 
+        ref_name = 'GallaryNameSerializer' 

@@ -7,6 +7,12 @@ from django.http import FileResponse
 from rest_framework.decorators import action
 # Create your views here.
 
+class NameAPI(GenericViewSet,
+                mixins.ListModelMixin):
+    queryset = Name.objects.all()
+    serializer_class = NameSerializers
+    
+    
 class AboutUsAPI(GenericViewSet,
                  mixins.ListModelMixin):
     queryset = AboutUs.objects.all()

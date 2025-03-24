@@ -1,5 +1,15 @@
 from rest_framework import serializers
-from app.activity.models import Progress, AllProgress, Educational
+from app.activity.models import *
+
+
+
+class NameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Name
+        fields = ('id', 'title')
+        ref_name = 'ActivityNameSerializer'
+
+
 
 class ProgressSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,7 +37,7 @@ class EducationalSerializer(serializers.ModelSerializer):
         model = Educational
         fields = [
             'id',
-            'title'
+            'title',
             'date', 
             'awarded', 
             'achieve',

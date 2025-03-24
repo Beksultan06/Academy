@@ -1,7 +1,10 @@
 from modeltranslation.translator import translator, TranslationOptions, register
 from modeltranslation.fields import TranslationField
-from app.management.models import Rector, ScientWorksRector, HR_department, Vacancies, RectorObjectsTitle, ScientWorksRectorObjects, VacanciesObjects, HR_departmentObjects
+from app.management.models import *
 
+@register(Name)
+class NameTranslationOptions(TranslationOptions):
+    fields = ('title',)
 
 @register(Rector)
 class RectorTranslationOptions(TranslationOptions):

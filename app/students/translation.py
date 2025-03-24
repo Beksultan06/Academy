@@ -1,37 +1,37 @@
 from app.students.admin import *
 from app.students.models import *
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import translator, TranslationOptions, register
+from . models import Name
 
+@register(ListPages)
+class ListPagesTranslationOptions(TranslationOptions):
+    fields = ('title',)
+
+@register(ListPagesObject)
+class ListPagesObjectTranslationOptions(TranslationOptions):
+    fields = ('two_title',)
+    
+@register(Name)
+class NameTranslationOptions(TranslationOptions):
+    fields = ('title',)
 
 class ParliamentTranslationOptions(TranslationOptions):
+    fields = ('students_full_name', 'description')
+
+class PortalTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
 
-
-class ActiveTranslationOptions(TranslationOptions):
-    fields = ('title', 'description')
-
+class Active_StudentsTranslationOptions(TranslationOptions):
+    fields = ('students_full_name', 'description')
 
 class HostelTranslationOptions(TranslationOptions):
-    fields = ( 'title', 'description', 
-            'accommodation_title', 'accommodation_text', 
-            'spiritual_title', 'spiritual_text', 
-            'security_title', 'security_text', 
-            'student_life_title', 'student_life_text', 
-            'reviews_title', 'reviews_text', )
-
+    fields = ( 'title', 'description')
 
 class StudentLifeTranslationOptions(TranslationOptions):
-    fields = ( 'title', 'description', 
-            'education_title', 'education_text', 
-            'spiritual_development_title', 'spiritual_development_text', 
-            'cultural_events_title', 'cultural_events_text', 
-            'sports_title', 'sports_text', 
-            'reviews_title', 'reviews_text')
+    fields = ('title', 'description')
 
-
-
-# Регистрация переводов
+translator.register(StudentsLife, StudentLifeTranslationOptions)
 translator.register(Parliament, ParliamentTranslationOptions)
-translator.register(Active, ActiveTranslationOptions)
+translator.register(Active_Students, Active_StudentsTranslationOptions)
 translator.register(Hostel, HostelTranslationOptions)
-translator.register(StudentLife, StudentLifeTranslationOptions)
+translator.register(Portal, PortalTranslationOptions)

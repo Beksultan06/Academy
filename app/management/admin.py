@@ -1,10 +1,15 @@
 from django.contrib import admin
-from app.management.models import Rector, ScientWorksRector, HR_department, Vacancies, RectorObjectsTitle, ScientWorksRectorObjects, VacanciesObjects, HR_departmentObjects
+from app.management.models import *
 from modeltranslation.admin import TranslationAdmin
 from django.forms import ModelForm, BaseInlineFormSet
 from .translation import *
 
 # Register your models here.
+
+class NameAdmin(TranslationAdmin):
+    fields = ('title',)
+
+admin.site.register(Name, NameAdmin)
 
 class RectorAdminForm(ModelForm):
     class Meta:

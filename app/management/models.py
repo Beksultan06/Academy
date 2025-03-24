@@ -2,6 +2,17 @@ from django.db import models
 from ckeditor.fields import RichTextField
 
 # Create your models here.
+class Name(models.Model):
+    title = models.CharField(max_length=225,
+    verbose_name = 'Руководсво')
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Management name'
+        verbose_name_plural = 'Management name'
+
 
 class Rector(models.Model):
     name_rector = models.CharField(

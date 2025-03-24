@@ -3,12 +3,17 @@ from modeltranslation.admin import TranslationAdmin
 from . translation import *
 from app.education.models import *
 from django.forms import BaseInlineFormSet
-from app.education.models import WelcomePage, EducationMiddle, Ape, Courses, Library, WelcomePageObjects, EducationMiddleObjects
+from app.education.models import *
 from modeltranslation.admin import TranslationAdmin
 from . translation import *
 from django.forms import ModelForm, BaseInlineFormSet
 
 # Register your models here.
+
+class NameAdmin(TranslationAdmin):
+    fields = ('title',)
+
+admin.site.register(Name, NameAdmin)
 
 class WelcomePageAdminForm(ModelForm):
     class Meta:
@@ -19,8 +24,8 @@ class WelcomePageObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         super().add_fields(form, index)
         if index is not None and index > 0:
-            form.fields['title2_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
-            form.fields['title2_object'].required = False
+            form.fields['title_welcome'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title_welcome'].required = False
 
 class WelcomePageObjectInline(admin.TabularInline):
     model = WelcomePageObjects
@@ -63,9 +68,7 @@ class EducationMiddleObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         super().add_fields(form, index)
         if index is not None and index > 0:
-            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
             form.fields['title2_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
-            form.fields['title_object'].required = False
             form.fields['title2_object'].required = False
 
 class EducationMiddleObjectInline(admin.TabularInline):
@@ -99,69 +102,135 @@ class EducationMiddleAdmin(admin.ModelAdmin):
         })
     )
     inlines = [EducationMiddleObjectInline]
+    
 
 admin.site.register(WelcomePage, WelcomePageAdmin)
 admin.site.register(EducationMiddle, EducationMiddleAdmin)
 
 #Ape - Дополнительное Профессиональная Образование
-class ApeAdmin(TranslationAdmin):
-    fieldsets = (
-        ('Русская версия', {
-            'fields': ['title_ru', 'description_ru'],
-        }),
-        ('Кыргызская версия', {
-            'fields': ['title_ky', 'description_ky'],
-        }),
-        ('Английский версия', {
-            'fields': ['title_en', 'description_en'],
-        }),
-        ('Арабский версия', {
-            'fields': ['title_ar', 'description_ar'],
-        }),
-        ('Турецкий версия', {
-            'fields': ['title_tr', 'description_tr'],
-        }),
-    )
-admin.site.register(Ape, ApeAdmin)
+class CoursesObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title_object'].required = False
 
-class CoursesAdmin(TranslationAdmin):
+class CoursesObjectInline(admin.TabularInline):
+    model = CoursesObjects
+    formset = CoursesObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
+
+class CoursesAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Русская версия', {
+        ("Русская версия", {
             'fields': ['title_ru', 'description_ru'],
         }),
-        ('Кыргызская версия', {
+        ("Кыргызская версия", {
             'fields': ['title_ky', 'description_ky'],
         }),
-        ('Английская версия', {
+        ("Английская версия", {
             'fields': ['title_en', 'description_en'],
         }),
-        ('Турецкая версия', {
-            'fields': ['title_tr', 'description_tr'],
-        }),
-        ('Арабская версия', {
+        ("Арабская версия", {
             'fields': ['title_ar', 'description_ar'],
         }),
+        ("Турецкая версия", {
+            'fields': ['title_tr', 'description_tr'],
+        })
     )
+    inlines = [CoursesObjectInline]
+
 admin.site.register(Courses, CoursesAdmin)
 
-class LibraryAdmin(TranslationAdmin):
+class ApeObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title_object'].required = False
+
+class ApeObjectInline(admin.TabularInline):
+    model = ApeObjects
+    formset = ApeObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
+
+class ApeAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Русская версия', {
+        ("Русская версия", {
             'fields': ['title_ru', 'description_ru'],
         }),
-        ('Кыргызская версия', {
+        ("Кыргызская версия", {
             'fields': ['title_ky', 'description_ky'],
         }),
-        ('Английская версия', {
+        ("Английская версия", {
             'fields': ['title_en', 'description_en'],
         }),
-        ('Турецкая версия', {
-            'fields': ['title_tr', 'description_tr'],
-        }),
-        ('Арабская версия', {
+        ("Арабская версия", {
             'fields': ['title_ar', 'description_ar'],
         }),
+        ("Турецкая версия", {
+            'fields': ['title_tr', 'description_tr'],
+        })
     )
+    inlines = [ApeObjectInline]
+
+admin.site.register(Ape, ApeAdmin)
+
+
+
+class LibraryObjectInlineFormSet(BaseInlineFormSet):
+    def add_fields(self, form, index):
+        super().add_fields(form, index)
+        if index is not None and index > 0:
+            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title_object'].required = False
+
+class LibraryObjectInline(admin.TabularInline):
+    model = LibraryObjects
+    formset = LibraryObjectInlineFormSet
+    extra = 1
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if qs.exists():
+            first_object = qs.first()
+            return qs.exclude(id=first_object.id)
+        return qs
+
+class LibraryAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ("Русская версия", {
+            'fields': ['title_ru', 'description_ru'],
+        }),
+        ("Кыргызская версия", {
+            'fields': ['title_ky', 'description_ky'],
+        }),
+        ("Английская версия", {
+            'fields': ['title_en', 'description_en'],
+        }),
+        ("Арабская версия", {
+            'fields': ['title_ar', 'description_ar'],
+        }),
+        ("Турецкая версия", {
+            'fields': ['title_tr', 'description_tr'],
+        })
+    )
+    inlines = [LibraryObjectInline]
+
 admin.site.register(Library, LibraryAdmin)
 
 # Register your models here.
@@ -171,8 +240,8 @@ class EducationProObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         super().add_fields(form, index)
         if index is not None and index > 0:
-            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
-            form.fields['title_object'].required = False
+            form.fields['title2_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title2_object'].required = False
 
 
 class EducationProObjectInline(admin.TabularInline):
@@ -191,7 +260,7 @@ class EducationProObjectInline(admin.TabularInline):
 class EducationProAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Русская версия", {
-            'fields': ['title_education', 'description_education', 'title_facult_education', 'description_facult_education', 'name_speciality_education', 'status_education', 'form_education', 'perioud_education'],
+            'fields': ['title_education_ru', 'description_education_ru', 'title_facult_education_ru', 'description_facult_education_ru', 'name_speciality_education_ru', 'status_education_ru', 'form_education_ru', 'perioud_education_ru'],
         }),
         ("Кыргызская версия", {
             'fields': ['title_education_ky', 'description_education_ky', 'title_facult_education_ky', 'description_facult_education_ky', 'name_speciality_education_ky', 'status_education_ky', 'form_education_ky', 'perioud_education_ky'],
@@ -216,8 +285,8 @@ class EducationSeniorObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         super().add_fields(form, index)
         if index is not None and index > 0:
-            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
-            form.fields['title_object'].required = False
+            form.fields['title2_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title2_object'].required = False
 
 
 class EducationSeniorObjectInline(admin.TabularInline):
@@ -236,7 +305,7 @@ class EducationSeniorObjectInline(admin.TabularInline):
 class EducationSeniorAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Русская версия", {
-            'fields': ['title_education', 'description_education', 'title_facult_education', 'description_facult_education', 'name_speciality_education', 'status_education', 'form_education', 'perioud_education'],
+            'fields': ['title_education_ru', 'description_education_ru', 'title_facult_education_ru', 'description_facult_education_ru', 'name_speciality_education_ru', 'status_education_ru', 'form_education_ru', 'perioud_education_ru'],
         }),
         ("Кыргызская версия", {
             'fields': ['title_education_ky', 'description_education_ky', 'title_facult_education_ky', 'description_facult_education_ky', 'name_speciality_education_ky', 'status_education_ky', 'form_education_ky', 'perioud_education_ky'],
@@ -262,8 +331,8 @@ class EducationDoctoraObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):
         super().add_fields(form, index)
         if index is not None and index > 0:
-            form.fields['title_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
-            form.fields['title_object'].required = False
+            form.fields['title2_object'].widget = admin.widgets.AdminFileWidget(attrs={'style': 'display:none;'})
+            form.fields['title2_object'].required = False
 
 
 class EducationDoctoraObjectInline(admin.TabularInline):
@@ -282,7 +351,7 @@ class EducationDoctoraObjectInline(admin.TabularInline):
 class EducationDoctoraAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Русская версия", {
-            'fields': ['title_education', 'description_education', 'title_facult_education', 'description_facult_education', 'name_speciality_education', 'status_education', 'form_education', 'perioud_education'],
+            'fields': ['title_education_ru', 'description_education_ru', 'title_facult_education_ru', 'description_facult_education_ru', 'name_speciality_education_ru', 'status_education_ru', 'form_education_ru', 'perioud_education_ru'],
         }),
         ("Кыргызская версия", {
             'fields': ['title_education_ky', 'description_education_ky', 'title_facult_education_ky', 'description_facult_education_ky', 'name_speciality_education_ky', 'status_education_ky', 'form_education_ky', 'perioud_education_ky'],

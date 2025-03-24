@@ -2,6 +2,20 @@ from django.db import models
 from ckeditor.fields import RichTextField
 # Create your models here.
 #О нас
+
+class Name(models.Model):
+    title = models.CharField(max_length=225,
+    verbose_name = 'Об Академии')
+    
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'AboutAcademy name'
+        verbose_name_plural = 'AboutAcademy name'
+
+
 class AboutUs(models.Model):
     title = models.CharField(max_length=100,verbose_name='Заголовок')
     description = RichTextField(verbose_name='Описание')

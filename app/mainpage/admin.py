@@ -10,6 +10,7 @@ class BannerAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('title_en', 'description_en')}),
         ("Туркская версия", {'fields': ('title_tr', 'description_tr')}),
         ("Арабская версия", {'fields': ('title_ar', 'description_ar')}),
+        ("Изображение", {'fields': ('image',)}),
     )
     
 class NewsAdmin(TranslationAdmin):
@@ -19,7 +20,10 @@ class NewsAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('title_en', 'content_en','detail_description_en')}),
         ("Туркская версия", {'fields': ('title_tr', 'content_tr', 'detail_description_tr')}),
         ("Арабская версия", {'fields': ('title_ar', 'content_ar', 'detail_description_ar')}),
+        ("Изображение", {'fields': ('image',)}),
+        ("Дата создания", {'fields': ('created_at',)}),
     )
+
 class DegreeAdmin(TranslationAdmin):
     fieldsets = (
         ("Русская версия", {'fields': ('name_ru', 'description_ru')}),
@@ -36,6 +40,8 @@ class RecommendationAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('title_en', 'description_en', 'detail_description_en')}),
         ("Туркская версия", {'fields': ('title_tr', 'description_tr','detail_description_tr')}),
         ("Арабская версия", {'fields': ('title_ar', 'description_ar','detail_description_ar')}),
+        ("Изображение", {'fields': ('image',)}),
+        ("Дата создания", {'fields': ('created_at',)}),
     )
 
 class AcademyJournalAdmin(TranslationAdmin):
@@ -45,6 +51,8 @@ class AcademyJournalAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('title_en', 'description_en','detail_description_en')}),
         ("Туркская версия", {'fields': ('title_tr', 'description_tr','detail_description_tr')}),
         ("Арабская версия", {'fields': ('title_ar', 'description_ar','detail_description_ar')}),
+        ("Изображение", {'fields': ('image',)}),
+        ("Дата создания", {'fields': ('created_at',)}),
     )
 
 class PartnerJournalAdmin(TranslationAdmin):
@@ -54,7 +62,11 @@ class PartnerJournalAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('title_en', 'description_en','detail_description_en')}),
         ("Туркская версия", {'fields': ('title_tr', 'description_tr','detail_description_tr')}),
         ("Арабская версия", {'fields': ('title_ar', 'description_ar','detail_description_ar')}),
+        ("Изображение", {'fields': ('image',)}),
+        ("Дата создания", {'fields': ('created_at',)}),
     )
+
+
 
 class GalleryImageAdmin(TranslationAdmin):
     fieldsets = (
@@ -63,6 +75,7 @@ class GalleryImageAdmin(TranslationAdmin):
         ("Английская версия", {'fields': ('description_en',)}),
         ("Туркская версия", {'fields': ('description_tr',)}),
         ("Арабская версия", {'fields': ('description_ar',)}),
+        ("Изображение", {'fields': ('image',)}),
     )
 
 admin.site.register(Banner, BannerAdmin)

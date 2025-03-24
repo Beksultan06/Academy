@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from app.management.models import Rector, ScientWorksRector, HR_department, Vacancies, RectorObjectsTitle, ScientWorksRectorObjects, HR_departmentObjects, VacanciesObjects
+from app.management.models import *
+
+
+class NameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Name
+        fields = ('id', 'title')
+        ref_name = 'ManagementNameSerializer' 
+
 
 class RectorSerializer(serializers.ModelSerializer):
     class Meta:

@@ -3,6 +3,19 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 
+class Name(models.Model):
+    title = models.CharField(max_length=225,
+    verbose_name = 'Образавание')
+    
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Education name'
+        verbose_name_plural = 'Education name'
+
+
 class WelcomePage(models.Model):
     title_welcome = models.CharField(
         max_length=255,
@@ -33,6 +46,7 @@ class WelcomePageObjects(models.Model):
         max_length=255,
         verbose_name="Под заголовок обьекта"
     )
+    
     def __str__(self):
         return self.title2_object
     
@@ -40,26 +54,26 @@ class WelcomePageObjects(models.Model):
         verbose_name = "Объекты страницы приветствия"
         verbose_name_plural = "Объекты страницы приветствия"
     
+from django.db import models
+from ckeditor.fields import RichTextField
+
 class EducationMiddle(models.Model):
-    
     # начало страницы
     title_education = models.CharField(
         max_length=255,
         verbose_name="Заголовок образования среднего уровня"
-        )
-    description_education = models.CharField(
-        max_length=255,
+    )
+    description_education = RichTextField(
         verbose_name="Описание образования среднего уровня"
     )
     title_facult_education = models.CharField(
         max_length=255,
         verbose_name="Заголовок факультета образования среднего уровня"
-        )
-    description_facult_education = models.CharField(
-        max_length=255,
+    )
+    description_facult_education = RichTextField(
         verbose_name="Описание факультета образования среднего уровня"
     )
-        
+
     # вводимые поля таблицы
     name_speciality_education = models.CharField(
         max_length=255,
@@ -77,30 +91,26 @@ class EducationMiddle(models.Model):
         max_length=255,
         verbose_name="Период обучения"
     )
-    
+
     def __str__(self):
-        return self.title_education
-    
+        return f"{self.title_education} - {self.name_speciality_education}"
+
     class Meta:
         verbose_name = "Образование среднего уровня"
         verbose_name_plural = "Образование среднего уровня"
-        
+
 class EducationMiddleObjects(models.Model):
     education_middle = models.ForeignKey(
         EducationMiddle,
         on_delete=models.CASCADE, 
         verbose_name="образование среднего уровня"
         )
-    title_object = models.CharField(
+    title2_object = models.CharField(
         max_length=255,
         verbose_name="Под заголовок"
     )
-    title2_object = models.CharField(
-        max_length=255,
-        verbose_name="Под загаловки"
-    )
     def __str__(self):
-        return self.title_object
+        return self.title2_object
     
     class Meta:
         verbose_name = "Объекты образования среднего уровня"
@@ -189,13 +199,13 @@ class EducationProObjects(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Образование высокого уровня"
     )
-    title_object = models.CharField(
+    title2_object = models.CharField(
         max_length=255,
         verbose_name="Заголовок объекта"
     )
 
     def __str__(self):
-        return self.title_object
+        return self.title2_object
 
     class Meta:
         verbose_name = "Объекты образования высокого уровня"
@@ -205,17 +215,17 @@ class EducationProObjects(models.Model):
 class EducationSenior(models.Model):
     title_education = models.CharField(
         max_length=255,
-        verbose_name="Заголовок Докторунтуры"
+        verbose_name="Заголовок Магистратуры"
     )
     description_education = RichTextField(
-        verbose_name="Описание Докторунтуры"
+        verbose_name="Описание Магистратуры"
     )
     title_facult_education = models.CharField(
         max_length=255,
-        verbose_name="Заголовок факультета Докторунтуры"
+        verbose_name="Заголовок факультета Магистратуры"
     )
     description_facult_education = RichTextField(
-        verbose_name="Описание факультета Докторунтуры"
+        verbose_name="Описание факультета Магистратуры"
     )
     name_speciality_education = models.CharField(
         max_length=255,
@@ -257,8 +267,8 @@ class EducationSeniorObjects(models.Model):
         return self.title_object
 
     class Meta:
-        verbose_name = "Объекты Докторунтуры"
-        verbose_name_plural = "Объекты Докторунтуры"
+        verbose_name = "Объекты Магистратуры"
+        verbose_name_plural = "Объекты Магистратуры"
 
 
 class EducationDoctora(models.Model):
@@ -319,4 +329,56 @@ class EducationDoctoraObjects(models.Model):
         verbose_name = "Объекты Докторунтуры"
         verbose_name_plural = "Объекты Докторунтуры"
 
-    
+class ApeObjects(models.Model):
+    education_ape = models.ForeignKey(
+        "Ape",
+        on_delete=models.CASCADE,
+        verbose_name="Образование дополнительного уровня"
+    )
+    title_object = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок объекта"
+    )
+
+    def __str__(self):
+        return self.title_object
+
+    class Meta:
+        verbose_name = "Объект Дополнительное Профессиональная Образование"
+        verbose_name_plural = "Объекты Дополнительное Профессиональная Образование"
+        
+class CoursesObjects(models.Model):
+    education_courses = models.ForeignKey(
+        "Courses",
+        on_delete=models.CASCADE,
+        verbose_name="Образование дополнительного уровня"
+    )
+    title_object = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок объекта"
+    )
+
+    def __str__(self):
+        return self.title_object
+
+    class Meta:
+        verbose_name = "Объект Дополнительное Профессиональная Образование"
+        verbose_name_plural = "Объекты Дополнительное Профессиональная Образование"
+        
+class LibraryObjects(models.Model):
+    education_library = models.ForeignKey(
+        "Library",
+        on_delete=models.CASCADE,
+        verbose_name="Образование дополнительного уровня"
+    )
+    title_object = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок объекта"
+    )
+
+    def __str__(self):
+        return self.title_object
+
+    class Meta:
+        verbose_name = "Объект Дополнительное Профессиональная Образование"
+        verbose_name_plural = "Объекты Дополнительное Профессиональная Образование"

@@ -1,5 +1,18 @@
 from rest_framework import serializers
-from .models import AcademicCouncil, ScientificJournals, CenterEducation
+from .models import *
+
+class ScientificJournalsObjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScientificJournalsObject
+        fields = ['id', 'title2_object',]
+
+
+class NameSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Name
+        fields = ('id', 'title')
+        ref_name = 'OlogyNameSerializer'
+
 
 class AcademicCouncilSerializer(serializers.ModelSerializer):
     class Meta:

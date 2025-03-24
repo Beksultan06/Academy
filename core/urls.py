@@ -11,7 +11,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path('api/v1/AboutAcademy',include('app.AboutAcademy.urls')),
+    path('api/v1/AboutAcademy/',include('app.AboutAcademy.urls')),
     path('api/v1/gellary',include('app.gellary.urls')),
     path('api/v1/ology/', include('app.ology.urls')),
     path('api/v1/education/', include('app.education.urls')),

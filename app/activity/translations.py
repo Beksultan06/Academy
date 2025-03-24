@@ -1,5 +1,9 @@
 from modeltranslation.translator import translator, TranslationOptions, register
-from app.activity.models import Progress, AllProgress, Educational
+from app.activity.models import *
+
+@register(Name)
+class NameTranslationOptions(TranslationOptions):
+    fields = ('title',)
 
 @register(Progress)
 class ProgressTranslationOptions(TranslationOptions):
