@@ -13,19 +13,28 @@ class NameSerializers(serializers.ModelSerializer):
 class ParliamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Parliament
-        fields = ('students_full_name', 'description', 'images')
+        fields = ('id', 'students_full_name', 'description', 'images')
 
+
+class StudentWorkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentWork
+        fields = ('name', 'description', 'img')
 
 class ActiveSerializer(serializers.ModelSerializer):
+    work = StudentWorkSerializer(many=True, read_only=True)  # Добавляем работы в сериализатор
+
     class Meta:
         model = Active_Students
-        fields = ('students_full_name', 'description', 'images')
+        fields = ('id', 'name', 'description', 'descriptions', 'images', 'work')
+
+
 
 
 class Active_StudentsAboutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Active_StudentsAbout
-        fields = ('title', 'description', 'images')
+        fields = ('id', 'title', 'description', 'images')
 
 
 class HostelSerializer(serializers.ModelSerializer):
@@ -33,7 +42,7 @@ class HostelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hostel
-        fields = ('title', 'description', 'images')
+        fields = ('id', 'title', 'description', 'images')
 
     def get_images(self, obj):
         request = self.context.get('request')
@@ -55,7 +64,7 @@ class HostelSerializer(serializers.ModelSerializer):
 class PortalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Portal
-        fields = ('title', 'description', 'contacts')
+        fields = ('id', 'title', 'description', 'contacts')
 
 
 class StudentsLifeSerializer(serializers.ModelSerializer):
@@ -63,7 +72,7 @@ class StudentsLifeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentsLife
-        fields = ('title', 'description', 'images')
+        fields = ('id', 'title', 'description', 'images')
 
     def get_images(self, obj):
         request = self.context.get('request')

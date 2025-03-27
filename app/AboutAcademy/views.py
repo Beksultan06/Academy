@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from rest_framework import mixins
+from rest_framework import mixins, viewsets
 from rest_framework.viewsets import GenericViewSet
 from app.AboutAcademy.models import *
 from app.AboutAcademy.serializers import *
 from django.http import FileResponse
 from rest_framework.decorators import action
+
 # Create your views here.
 
 class NameAPI(GenericViewSet,
@@ -23,10 +24,6 @@ class DevStrategyAPI(GenericViewSet,
     queryset = DevStrategy.objects.all()
     serializer_class = DevStrategySerializers
 
-class DevStrategyPhotoAPI(GenericViewSet,
-                          mixins.ListModelMixin):
-    queryset = DevStrategyPhoto.objects.all()
-    serializer_class = DevStrategyPhotoSerializer
 
 class MissionAPI(GenericViewSet,
                  mixins.ListModelMixin):
@@ -50,10 +47,10 @@ class DocumentAPI(GenericViewSet,
         document = self.get_object()
         return FileResponse(document.file.open(), as_attachment=True)
     
-class AchievementsAPI(GenericViewSet,
-                      mixins.ListModelMixin):
+class AchievementsAPIV(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Achievements.objects.all()
-    serializer_class = AchievementsSerializer
+    serializer_class = AchievementsSerializers
+
 
 class HistoryAPI(GenericViewSet,
                  mixins.ListModelMixin):

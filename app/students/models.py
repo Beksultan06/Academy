@@ -36,24 +36,56 @@ class Parliament(models.Model):
         verbose_name_plural = 'Студенчекий Парламент'
 
 class Active_Students(models.Model):
-    students_full_name = models.CharField(
+    name = models.CharField(
         max_length=255,
         verbose_name="ФИО студента"
     )
+    
     description = RichTextField(
-        verbose_name="Описание студента"
+        verbose_name="Первый обзац описания студента"
     )
+
+    descriptions = RichTextField(verbose_name="Второй обзац описания студента")
+
     images = models.ImageField(
         upload_to="image/",
-        verbose_name="Фотография студента"
+        verbose_name="Фотография студента",
+        blank=True, null=True
     )
 
     def __str__(self):
-        return self.students_full_name
+        return self.name
     
     class Meta:
         verbose_name = 'Активные Студенты'
         verbose_name_plural = 'Активные Студенты'
+
+class StudentWork(models.Model):
+    student = models.ForeignKey(
+        Active_Students, 
+        on_delete=models.CASCADE, 
+        related_name="work"
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name="Название проекта"
+    )
+    description = models.TextField(
+        verbose_name="Описание проекта"
+    )
+    img = models.ImageField(
+        upload_to="image/work/",
+        verbose_name="Изображение проекта",
+        blank=True, null=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Работы студентов'
+        verbose_name_plural = 'Работы студентов'
+        
 
 class Active_StudentsAbout(models.Model):
     title = models.CharField(max_length=100,verbose_name="Заголовок информации студента")

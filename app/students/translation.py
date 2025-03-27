@@ -22,8 +22,12 @@ class PortalTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
 
 class Active_StudentsTranslationOptions(TranslationOptions):
-    fields = ('students_full_name', 'description')
+    fields = ('name', 'description', 'descriptions')
 
+@register(StudentWork)
+class StudentWorkTranslationOptions(TranslationOptions):
+    fields = ('name', 'description')
+    
 class HostelTranslationOptions(TranslationOptions):
     fields = ( 'title', 'description')
 
