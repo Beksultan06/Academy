@@ -15,16 +15,16 @@ class ParliamentAdmin(TranslationAdmin):
             'fields': ('images',),
         }),
         ('Русская версия', {
-            'fields': ('students_full_name_ru', 'description_ru'),
+            'fields': ('name_ru', 'description_ru'),
         }),
         ('Английская версия', {
-            'fields': ('students_full_name_en', 'description_en'),
+            'fields': ('name_en', 'description_en'),
         }),
         ('Кыргызская версия', {
-            'fields': ('students_full_name_ky', 'description_ky'),
+            'fields': ('name_ky', 'description_ky'),
         }),
         ('Турецкая версия', {
-            'fields': ('students_full_name_tr', 'description_tr'),
+            'fields': ('name_tr', 'description_tr'),
         }),
         ('Арабская версия', {
             'fields': ('students_full_name_ar', 'description_ar'),
@@ -56,21 +56,48 @@ class ActiveAdmin(TranslationAdmin):
             'fields': ('images',),
         }),
         ('Русская версия', {
-            'fields': ('students_full_name_ru', 'description_ru'),
+            'fields': ('name_ru', 'description_ru', 'descriptions_ru'),
         }),
         ('Английская версия', {
-            'fields': ('students_full_name_en', 'description_en'),
+            'fields': ('name_en', 'description_en', 'descriptions_en'),
         }),
         ('Кыргызская версия', {
-            'fields': ('students_full_name_ky', 'description_ky'),
+            'fields': ('name_ky', 'description_ky', 'descriptions_ky'),
         }),
         ('Турецкая версия', {
-            'fields': ('students_full_name_tr', 'description_tr'),
+            'fields': ('name_tr', 'description_tr', 'descriptions_tr'),
         }),
         ('Арабская версия', {
-            'fields': ('students_full_name_ar', 'description_ar'),
+            'fields': ('name_ar', 'description_ar', 'descriptions_ar'),
         }),
     )
+
+@admin.register(StudentWork)
+class StudentWorkAdmin(TranslationAdmin):
+    fieldsets = (
+        ('Проект', {
+            'fields': ('student', 'img'),
+        }),
+        ('Русский', {
+            'fields': ('name_ru', 'description_ru'),
+        }),
+        ('Английский', {
+            'fields': ('name_en', 'description_en'),
+        }),
+        ('Кыргызский', {
+            'fields': ('name_ky', 'description_ky'),
+        }),
+        ('Турецкий', {
+            'fields': ('name_tr', 'description_tr'),
+        }),
+        ('Арабский', {
+            'fields': ('name_ar', 'description_ar'),
+        }),
+    )
+    list_display = ('name', 'student')
+    search_fields = ('name', 'student__name')
+
+
 
 class HostelObjectInlineFormSet(BaseInlineFormSet):
     def add_fields(self, form, index):

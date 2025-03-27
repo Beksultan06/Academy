@@ -45,12 +45,6 @@ class DevStrategy(models.Model):
         verbose_name = 'Стратегия развития'
         verbose_name_plural = 'Стратегии развития'
 
-class DevStrategyPhoto(models.Model):
-    photo = models.ImageField(upload_to='dev_strategy_photos/',verbose_name='Фото стратегии разватии и достижений')
-
-    class Meta:
-        verbose_name = 'Фотография стратегии развития и достижений'
-        verbose_name_plural = 'Фотографии стратегии развития и достижений'
 
 class Mission(models.Model):
     title = models.CharField(max_length=100,verbose_name='Заголовок')
@@ -65,23 +59,44 @@ class Mission(models.Model):
 
 class Document(models.Model):
     title = models.CharField(max_length=255)
+    title_2 = models.CharField(max_length=225)
     file = models.FileField(upload_to='documents/')
 
     class Meta:
         ordering = ['id'] 
         verbose_name = "Документ"
         verbose_name_plural = "Документы"  
+    
+
 
 class Achievements(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
-    #Фотка достижений там сверху в классе DevStrategyPhoto
+    title = models.TextField(
+        verbose_name='Заголовок'
+        )
+    image = models.ImageField(
+        upload_to='image/'
+        )
+    description = RichTextField(
+        verbose_name='Описание'
+        )
+
     def __str__(self):
         return self.title
     
     class Meta:
         verbose_name = 'Достижение'
         verbose_name_plural = 'Достижения'
+
+class AchievementsObject(models.Model):
+    achievements = models.ForeignKey(Achievements, on_delete=models.CASCADE,verbose_name='Достижение')
+    image = models.ImageField(upload_to='dosti', verbose_name='Фото достижений')
+
+    def __str__(self):
+        return str(self.achievements.title)  
+
+    class Meta:
+        verbose_name = ''
+        verbose_name_plural = 'Изображение'
 
 class History(models.Model):
     title = models.CharField(max_length=100,verbose_name='Заголовок')

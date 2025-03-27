@@ -19,11 +19,16 @@ class MissionTranslationOption(TranslationOptions):
 
 @register(Document)
 class DocumentTranslationOption(TranslationOptions):
-    fields = ('title','file')
+    fields = ('title', 'title_2',)
+
 
 @register(Achievements)
-class AchievementsTranslationOption(TranslationOptions):
-    fields = ('title','description')
+class AchievementsTranslationOptions(TranslationOptions):
+    fields = (
+        'title',
+        'description',
+    )
+
 
 @register(History)
 class HistoryTranslationOption(TranslationOptions):

@@ -17,6 +17,7 @@ class WelcomePageViewSet(GenericViewSet,
     queryset = WelcomePage.objects.all()
     serializer_class = WelcomePageSerializer
 
+
 class EducationMiddleViewSet(GenericViewSet,
                             mixins.ListModelMixin,
                          mixins.RetrieveModelMixin):
