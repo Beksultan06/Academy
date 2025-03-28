@@ -33,19 +33,19 @@ admin.site.register(Progress, ProgressAdmin)
 class AllProgressAdmin(TranslationAdmin):
     fieldsets = (
         ("Русская версия", {
-            'fields': ('awarded_ru', 'achieve_ru', 'location_ru', 'date_ru',)
+            'fields': ('title_ru', 'awarded_ru', 'achieve_ru', 'location_ru', 'date_ru',)
         }),
         ("Кыргызская версия", {
-            'fields': ('awarded_ky', 'achieve_ky', 'location_ky', 'date_ky',)
+            'fields': ('title_ky', 'awarded_ky', 'achieve_ky', 'location_ky', 'date_ky',)
         }),
         ("Английская версия", {
-            'fields': ('awarded_en', 'achieve_en', 'location_en', 'date_en',)
+            'fields': ('title_en', 'awarded_en', 'achieve_en', 'location_en', 'date_en',)
         }),
         ("Туркская версия", {
-            'fields': ('awarded_tr', 'achieve_tr', 'location_tr', 'date_tr',)
+            'fields': ('title_tr', 'awarded_tr', 'achieve_tr', 'location_tr', 'date_tr',)
         }),
         ("Арaбская версия", {
-            'fields': ('awarded_ar', 'achieve_ar', 'location_ar', 'date_ar',)
+            'fields': ('title_ar', 'awarded_ar', 'achieve_ar', 'location_ar', 'date_ar',)
         }),
         ("Global", {
             'fields': ('image',)  

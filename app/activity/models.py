@@ -31,6 +31,10 @@ class Progress(models.Model):
         verbose_name_plural = "Достижения"
         
 class AllProgress(models.Model):
+    title = models.CharField(
+        max_length=255,
+        verbose_name="Заголовок"
+        )
     date = models.CharField(
         max_length=255,
         verbose_name="Дата"

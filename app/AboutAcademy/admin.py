@@ -77,19 +77,19 @@ admin.site.register(Mission, MissionAdmin)
 class DocumentAdmin(TranslationAdmin):
     fieldsets = (
         ('Русская версия', {
-            'fields': ['title_ru', 'title_2_ru'],
+            'fields': ['title_ru'],
         }),
         ('Кыргызская версия', {
-            'fields': ['title_ky', 'title_2_ky'],
+            'fields': ['title_ky'],
         }),
         ('Английский версия', {
-            'fields': ['title_en', 'title_2_en'],
+            'fields': ['title_en'],
         }),
         ('Арабский версия', {
-            'fields': ['title_ar', 'title_2_ar'],
+            'fields': ['title_ar'],
         }),
         ('Турецкий версия', {
-            'fields': ['title_tr', 'title_2_tr'],
+            'fields': ['title_tr'],
         }),
         ('File', {
             'fields': ['file'],
