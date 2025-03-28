@@ -25,6 +25,7 @@ class AllProgressSerializer(serializers.ModelSerializer):
         model = AllProgress
         fields = [
             'id',
+            'title',
             'date', 
             'awarded',
             'achieve',

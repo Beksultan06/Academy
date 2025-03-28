@@ -59,7 +59,6 @@ class Mission(models.Model):
 
 class Document(models.Model):
     title = models.CharField(max_length=255)
-    title_2 = models.CharField(max_length=225)
     file = models.FileField(upload_to='documents/')
 
     class Meta:

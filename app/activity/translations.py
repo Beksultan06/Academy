@@ -11,7 +11,7 @@ class ProgressTranslationOptions(TranslationOptions):
 
 @register(AllProgress)
 class AllProgressTranslationOptions(TranslationOptions):  
-    fields = ('awarded', 'achieve', 'location', 'date')
+    fields = ('title', 'awarded', 'achieve', 'location', 'date')
     
 @register(Educational)
 class EducationalTranslationOptions(TranslationOptions):  

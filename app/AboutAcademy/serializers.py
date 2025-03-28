@@ -29,8 +29,7 @@ class MissionSerializers(serializers.ModelSerializer):
         model = Mission
         fields = ['id', 'title', 'description']
 
-from rest_framework import serializers
-from .models import Document
+
 
 class DocumentSerializer(serializers.ModelSerializer):
     open_url = serializers.SerializerMethodField()
@@ -38,7 +37,7 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = ['id', 'title', 'title_2', 'file', 'open_url', 'download_url']
+        fields = ['id', 'title', 'file', 'open_url', 'download_url']
 
     def get_open_url(self, obj):
         request = self.context.get('request')
@@ -49,7 +48,7 @@ class DocumentSerializer(serializers.ModelSerializer):
     def get_download_url(self, obj):
         request = self.context.get('request')
         if request:
-            return request.build_absolute_uri(obj.file.url)  # Используем URL файла напрямую для скачивания
+            return request.build_absolute_uri(obj.file.url) 
         return obj.file.url
 
 
