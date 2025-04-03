@@ -8,20 +8,20 @@ from core.yasg import urlpatterns_yasg
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", include(urlpatterns_yasg)),
 ]
 
 urlpatterns += i18n_patterns(
-    path('api/v1/AboutAcademy',include('app.AboutAcademy.urls')),
-    path('api/v1/gellary',include('app.gellary.urls')),
-    path('api/v1/ology/', include('app.ology.urls')),
-    path('api/v1/education/', include('app.education.urls')),
+    path('api/v1/AboutAcademy/',include('app.AboutAcademy.urls')),
     path("api/v1/management/", include("app.management.urls")),
-    path("api/v1/applicants/", include("app.applicants.urls")),
-    path("api/v1/main/", include("app.mainpage.urls")),
     path("api/v1/activity/", include("app.activity.urls")),
-    path("api/vi/Getrequest/", include("app.Getrequest.urls")),
+    path('api/v1/ology/', include('app.ology.urls')),
+    path('api/v1/gellary',include('app.gellary.urls')),
     path("api/v1/students/", include("app.students.urls")),
-    path("", include(urlpatterns_yasg)),
+    path("api/v1/main/", include("app.mainpage.urls")),
+    path('api/v1/education/', include('app.education.urls')),
+    path("api/v1/applicants/", include("app.applicants.urls")),
+    path('api/v1/search/', include('app.search.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 )

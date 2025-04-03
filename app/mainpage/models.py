@@ -1,75 +1,97 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
-# Create your models here.
+class Settings(models.Model):
+    phone_header = models.CharField(
+        max_length=155,
+        verbose_name='Номер телефона в Хедере'
+    )
+    date_header = models.CharField(
+        max_length=155,
+        verbose_name='Дата в Хедере'
+    )
+    date_header = models.CharField(
+        max_length=155,
+        verbose_name='Дата в Хедере',
+        help_text='Раджаба Дата'
+    )
+    insta_url = models.URLField(
+        verbose_name='Ссылка на Инстаграм'
+    )
+    face_book = models.URLField(
+        verbose_name='Ссылка на Фейсбук'
+    )
+    email_footer = models.CharField(
+        max_length=155,
+        verbose_name='Почта на футоре'
+    )
+    location = models.CharField(
+        max_length=355,
+        verbose_name='Локация'
+    )
+    title_banner = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Баннера'
+    )
+    description_banner = RichTextField(
+        verbose_name='Описание Баннера'
+    )
+    image_banner = models.ImageField(
+        upload_to='settings',
+        verbose_name='Фото Баннера'
+    )
+    title_news = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Новости'
+    )
+    title_scientific_degrees = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка научные степени'
+    )
+    title_additional_professional_education = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка дополнительная профессиональная образования'
+    )
+    title_courses = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Курсов'
+    )
+    title_we_suggest_you_watch_it = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Предлогаем к просмотру'
+    )
+    title_journal_of_the_islamic_academy = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка журнал исламской академии'
+    )
+    title_journals_of_partner_universities = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка журналы партнерских вузов'
+    )
+    title_gallery = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Галлерий'
+    )
+    obj_date = models.CharField(
+        max_length=255,
+        verbose_name='Дата Объекта Предлогаем к просмотру'
+    )
+    title_obj = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Объекта Предлогаем к просмотру'
+    )
+    description_obj = RichTextField(
+        verbose_name='Описание Объекта Предлогаем к просмотру'
+    )
+    image_obj = models.ImageField(
+        upload_to='settings/obj',
+        verbose_name='Фото Объекта Предлогаем к просмотру'
+    )
 
-class Banner(models.Model):
-    title = models.CharField("Заголовок", max_length=255)
-    description = RichTextField("Описание")
-    image = models.ImageField("Изображение", upload_to='banners/')
+    def __str__(self):
+        return self.title_banner
+
 
     class Meta:
-        verbose_name = "Баннер"
-        verbose_name_plural = "Баннеры"
-
-class News(models.Model):
-    title = models.CharField("Заголовок", max_length=255)
-    content = RichTextField("Содержание")
-    image = models.ImageField("Изображение", upload_to='news/')
-    created_at = models.CharField("Дата создания", max_length=255)
-    detail_description = RichTextField("Детальный просмотр")
-
-
-    class Meta:
-        verbose_name = "Новость"
-        verbose_name_plural = "Новости"
-
-class Degree(models.Model):
-    name = models.CharField("Название", max_length=255)
-    description = RichTextField("Описание")
-
-    class Meta:
-        verbose_name = "Научная степень"
-        verbose_name_plural = "Научные степени"
-
-class Recommendation(models.Model):
-    title = models.CharField("Заголовок", max_length=255)
-    description = RichTextField("Описание")
-    image = models.ImageField("Изображение", upload_to='recommendations/')
-    detail_description = RichTextField("Детальный просмотр")
-    created_at = models.CharField("Дата создания", max_length=255)
-
-    class Meta:
-        verbose_name = "Рекомендация"
-        verbose_name_plural = "Рекомендации"
-
-class AcademyJournal(models.Model):
-    title = models.CharField("Заголовок", max_length=255)
-    description = RichTextField("Описание")
-    image = models.ImageField("Изображение", upload_to='journals/')
-    created_at = models.CharField("Дата создания", max_length=255)
-    detail_description = RichTextField("Детальный просмотр")
-
-    class Meta:
-        verbose_name = "Журнал Исламской Академии"
-        verbose_name_plural = "Журналы Исламской Академии"
-
-class PartnerJournal(models.Model):
-    title = models.CharField("Заголовок", max_length=255)
-    description = RichTextField("Описание")
-    image = models.ImageField("Изображение", upload_to='partner_journals/')
-    created_at = models.CharField("Дата создания", max_length=255)
-    detail_description = RichTextField("Детальный просмотр")
-
-
-    class Meta:
-        verbose_name = "Журнал Партнерских ВУЗов"
-        verbose_name_plural = "Журналы Партнерских ВУЗов"
-
-class GalleryImage(models.Model):
-    image = models.ImageField("Изображение", upload_to='gallery/')
-    description = RichTextField("Описание", blank=True, null=True)
-
-    class Meta:
-        verbose_name = "Изображение галереи"
-        verbose_name_plural = "Галерея"
+        verbose_name = 'Настройки Главной Страницы'
+        verbose_name_plural = 'Настройки Главной Страницы'

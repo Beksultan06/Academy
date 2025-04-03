@@ -1,74 +1,40 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
-class Progress(models.Model):
+class Activity(models.Model):
     title = models.CharField(
-        max_length=255,
-        verbose_name="Заголовок"
-        )
+        max_length=155,
+        verbose_name='Заголовка'
+    )
     description = RichTextField(
-        max_length=255,
-        verbose_name="Описание"
-        )
+        verbose_name = 'Описание',
+        blank=True, null=True
+    )
+
+    date = models.CharField(
+        max_length = 155,
+        verbose_name = 'Дата'
+    )
+    title_obj = models.CharField(
+        max_length=155,
+        verbose_name='Заголовка Объекта'
+    )
+    description_obj = RichTextField(
+        verbose_name='Описание Объекта'
+    )
+    image = models.ImageField(
+        upload_to='activity',
+        verbose_name='Фото'
+    )
+    place = models.CharField(
+        max_length = 155,
+        verbose_name = 'Место'
+    )
+    link = models.CharField(max_length=155, verbose_name='Категория')
 
     def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = "Достижение"
-        verbose_name_plural = "Достижения"
-        
-class AllProgress(models.Model):
-    date = models.CharField(
-        max_length=255,
-        verbose_name="Дата"
-    )
-    awarded = models.CharField(
-        max_length=255,
-        verbose_name="Присуждается"
-    )
-    achieve = RichTextField(  
-        verbose_name="Достижение"
-    )
-    location = models.CharField(
-        max_length=255,
-        verbose_name='Место'
-    )
-    image = models.ImageField(
-        verbose_name="Фото Достижения",
-        upload_to='Progress/'
-    )
+        return  self.title
 
-    class Meta:
-        verbose_name = "Все Достижения"
-        verbose_name_plural = "Все Достижения" 
-        
-class Educational(models.Model):
-    title = models.CharField(
-        max_length=255,
-        verbose_name="Заголовок"
-        )
-    date = models.CharField(
-        max_length=255,
-        verbose_name="Дата"
-    )
-    awarded = models.CharField(
-        max_length=255,
-        verbose_name="Присуждается"
-    )
-    achieve = RichTextField(  
-        verbose_name="Достижение"
-    )
-    location = models.CharField(
-        max_length=255,
-        verbose_name='Место'
-    )
-    image = models.ImageField(
-        verbose_name="Фото Достижения",
-        upload_to='Progress/'
-    )
-
-    class Meta:
-        verbose_name = "Воспитание"
-        verbose_name_plural = "Воспитание" 
-
+    class Mate:
+        verbose_name = 'Деятельность'
+        verbose_name_plural = 'Деятельности'

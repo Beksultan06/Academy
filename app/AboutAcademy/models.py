@@ -1,113 +1,39 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-# Create your models here.
-#О нас
-class AboutUs(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
-    title_phone_number = models.CharField(max_length=100,verbose_name='Заголовок номера телефона')
-    phone_number = RichTextField(verbose_name='Номер телефона')
-    title_adress = models.CharField(max_length=100,verbose_name='Заголовок адреса')
-    adress = RichTextField(verbose_name='Адрес')
-    title_operating_mode = models.CharField(max_length=100,verbose_name='Заголовок режима работы')
-    operating_mode = RichTextField(verbose_name='Режим работы')
-    link_map = models.URLField(verbose_name='Ссылка на карту')
+
+class About(models.Model):
+    page_key = models.CharField(
+        max_length=100,
+        verbose_name="Ключ страницы (пример: about, history, mission)",
+        help_text="Используется для группировки и отображения",
+        blank=True,
+        null=True
+    )
+    title_main = models.CharField(max_length=200, verbose_name="Главная Заголовка", blank=True, null=True)
+    title2 = models.CharField(max_length=155, verbose_name='Под Заголовка', blank=True, null=True)
+    title_page = models.CharField(max_length=155, verbose_name='Заголовка Страницы', blank=True, null=True)
+    description = RichTextField(verbose_name='Данные о Страницы', blank=True, null=True)
+    addresses = RichTextField(verbose_name='Адресы, телефон номер, режим работы', blank=True, null=True)
+    links_carta = models.URLField(verbose_name='Ссылка на карту', blank=True, null=True)
+
+    title_pdf = models.CharField(max_length=155, verbose_name='Заголовка Файла', blank=True, null=True)
+    url_pdf = models.URLField(verbose_name='Ссылка на Файл', blank=True, null=True)
+    dowl_url = models.FileField(verbose_name='PDF-Файл', blank=True, null=True)
 
     def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'О нас'
-        verbose_name_plural = 'О нас'
+        return self.title_page or "About Page"
 
-class DevStrategy(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
+    class Meta:
+        verbose_name = 'Об Академий'
+        verbose_name_plural = 'Об Академий'
+
+class AboutImage(models.Model):
+    about = models.ForeignKey(About, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='about-academy/', verbose_name='Фото')
 
     def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'Стратегия развития'
-        verbose_name_plural = 'Стратегии развития'
-
-class DevStrategyPhoto(models.Model):
-    photo = models.ImageField(upload_to='dev_strategy_photos/',verbose_name='Фото стратегии разватии и достижений')
+        return f"Изображение для {self.about.title_page}"
 
     class Meta:
-        verbose_name = 'Фотография стратегии развития и достижений'
-        verbose_name_plural = 'Фотографии стратегии развития и достижений'
-
-class Mission(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'Миссия'
-        verbose_name_plural = 'Миссии'
-
-class Document(models.Model):
-    title = models.CharField(max_length=255)
-    file = models.FileField(upload_to='documents/')
-
-    class Meta:
-        ordering = ['id'] 
-        verbose_name = "Документ"
-        verbose_name_plural = "Документы"  
-
-class Achievements(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
-    #Фотка достижений там сверху в классе DevStrategyPhoto
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'Достижение'
-        verbose_name_plural = 'Достижения'
-
-class History(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-    description = RichTextField(verbose_name='Описание')
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'История'
-        verbose_name_plural = 'Истории'
-
-class HistoryObject(models.Model):
-    history = models.ForeignKey(History, on_delete=models.CASCADE,verbose_name='Изображение истории слайдер')
-    image = models.ImageField(upload_to='object_history_photos/',verbose_name='Фото объекта истории слайдер')
-
-    def __str__(self):
-        return str(self.history)  
-
-    class Meta:
-        verbose_name = 'Изображение истории слайдер'
-        verbose_name_plural = 'Изображения истории слайдер'
-
-class ListPages(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Заголовок')
-
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        verbose_name = 'Список страниц'
-        verbose_name_plural = 'Список страниц'
-
-class ListPagesObject(models.Model):
-    list_pages = models.ForeignKey(ListPages, on_delete=models.CASCADE,verbose_name='Список страниц')
-    two_title = models.CharField(max_length=100,verbose_name='Под заголовок')
-
-    def __str__(self):
-        return str(self.list_pages)
-    
-    class Meta:
-        verbose_name = 'Под заголовок для списка страниц'
-        verbose_name_plural = 'Под заголовки для списка страниц'
+        verbose_name = 'Изображение для страницая'
+        verbose_name_plural = 'Изображение для страницая'
