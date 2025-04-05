@@ -1,26 +1,38 @@
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response
+from .serializers import *
+from .models import *
+from collections import defaultdict
 from rest_framework import mixins
-from app.students.models import *
-from app.students.serializers import *
+from rest_framework.viewsets import GenericViewSet
 
-class ParliamentAPI(GenericViewSet, 
-                    mixins.ListModelMixin,):
-    queryset = Parliament.objects.all()
-    serializer_class = ParliamentSerializer
+class ScientificJournalViewSet(ViewSet):
+    def list(self, request):
+        journals = ScientificJournal.objects.all()
+        grouped = defaultdict(list)
 
-class ActiveAPI(GenericViewSet, 
-                mixins.ListModelMixin,):
-    queryset = Active.objects.all()
-    serializer_class = ActiveSerializer
+        for journal in journals:
+            serializer = ScientificJournalSerializer(journal, context={'request': request})
+            grouped[journal.link].append(serializer.data)
 
+        nav_elements = []
+        for i, (link, cards) in enumerate(grouped.items(), start=1):
+            nav_elements.append({
+                "id": i,
+                "link": link,
+                "cards": cards
+            })
 
-class HostelAPI(GenericViewSet, 
-                mixins.ListModelMixin,):
-    queryset = Hostel.objects.all()
-    serializer_class = HostelSerializer
+        response = {
+            "scientific_journal": {
+                "page": "Научные журналы",
+                "banner": {
+                    "title": "Наши Научные Журналы",
+                    "description": "Публикуем лучшие работы студентов и преподавателей."
+                },
+                "navElements": nav_elements
+            }
+        }
+        return Response(response)
 
-class StudentLifeAPI(GenericViewSet, 
-                     mixins.ListModelMixin,):
-    queryset = StudentLife.objects.all()
-    serializer_class = StudentLifeSerializer
 

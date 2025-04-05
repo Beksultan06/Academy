@@ -41,13 +41,14 @@ MY_APPS = [
     "app.students",
     "app.AboutAcademy",
     "app.activity",
-    "app.applicants",
-    "app.education",
-    "app.gellary",
     "app.mainpage",
+    "app.gellary",
     "app.management",
     "app.ology",
-    'app.Getrequest',
+    "app.education",
+    "app.applicants",
+    "app.search",
+    # 'app.Getrequest',
 ]
 
 
@@ -113,6 +114,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
 
 
 ROOT_URLCONF = "core.urls"

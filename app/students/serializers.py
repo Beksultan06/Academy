@@ -1,42 +1,18 @@
 from rest_framework import serializers
-from .models import Parliament, Active, Hostel, StudentLife
+from .models import ScientificJournal, ScientificJournalObject
 
-class ParliamentSerializer(serializers.ModelSerializer):
+class ScientificJournalObjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Parliament
-        fields = ('title', 'description', 'images')
+        model = ScientificJournalObject
+        fields = ['id', 'image']
 
-class ActiveSerializer(serializers.ModelSerializer):
+class ScientificJournalSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField()
+    description = serializers.CharField()
+    students_full_name = serializers.CharField()
+    images = ScientificJournalObjectSerializer(many=True, read_only=True, source='scientificjournalobject_set')
+
     class Meta:
-        model = Active
-        fields = ('title', 'description', 'images')
-
-
-from rest_framework import serializers
-from .models import Hostel, StudentLife
-
-class HostelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Hostel
-        fields = (
-            'title', 'description', 
-            'accommodation_title', 'accommodation_text', 
-            'spiritual_title', 'spiritual_text', 
-            'security_title', 'security_text', 
-            'student_life_title', 'student_life_text', 
-            'reviews_title', 'reviews_text', 
-            'images'
-        )
-
-class StudentLifeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StudentLife
-        fields = (
-            'title', 'description', 
-            'education_title', 'education_text', 
-            'spiritual_development_title', 'spiritual_development_text', 
-            'cultural_events_title', 'cultural_events_text', 
-            'sports_title', 'sports_text', 
-            'reviews_title', 'reviews_text', 
-            'images'
-        )
+        model = ScientificJournal
+        fields = ['id', 'title', 'description', 'students_full_name', 'number', 'email', 'link', 'images']

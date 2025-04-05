@@ -1,17 +1,14 @@
 from rest_framework import serializers
-from .models import AcademicCouncil, ScientificJournals, CenterEducation
+from app.ology.models import Ology
 
-class AcademicCouncilSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AcademicCouncil
-        fields = ['id', 'title', 'description', 'email', 'number']
+class OlogySerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField()
+    description = serializers.CharField()
+    number = serializers.IntegerField()
+    email = serializers.EmailField()
+    link = serializers.URLField()
 
-class ScientificJournalsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ScientificJournals
-        fields = ['id', 'title', 'description', 'image', 'link']
-
-class CenterEducationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CenterEducation
-        fields = ['id', 'title', 'description', 'email', 'number']
+        model = Ology
+        fields = ['id', 'title', 'description', 'number', 'email', 'link']
