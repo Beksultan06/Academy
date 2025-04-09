@@ -21,7 +21,7 @@ class OlogyAdmin(TranslationAdmin):
             'fields': ['title_tr', 'description_tr'],
         }),
         ('Global', {
-            'fields': ['number', 'email', 'link'],
+            'fields': ['number', 'email', 'link', 'image',],
         }),
     )
 

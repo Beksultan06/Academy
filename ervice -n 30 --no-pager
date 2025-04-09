@@ -1,0 +1,20 @@
+[0;1;32m●[0m gunicorn.service - gunicorn daemon
+     Loaded: loaded (/etc/systemd/system/gunicorn.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2025-04-09 09:23:31 MSK; 45min ago
+   Main PID: 104203 (gunicorn)
+      Tasks: 4 (limit: 1067)
+     Memory: 99.4M
+        CPU: 1.820s
+     CGroup: /system.slice/gunicorn.service
+             ├─104203 /var/www/Academy/venv/bin/python3 /var/www/Academy/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/Academy/gunicorn.sock core.wsgi:application
+             ├─104205 /var/www/Academy/venv/bin/python3 /var/www/Academy/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/Academy/gunicorn.sock core.wsgi:application
+             ├─104206 /var/www/Academy/venv/bin/python3 /var/www/Academy/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/Academy/gunicorn.sock core.wsgi:application
+             └─104207 /var/www/Academy/venv/bin/python3 /var/www/Academy/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/Academy/gunicorn.sock core.wsgi:application
+
+Apr 09 09:23:31 4535869-ih14439 systemd[1]: Started gunicorn daemon.
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104203]: [2025-04-09 09:23:31 +0300] [104203] [INFO] Starting gunicorn 23.0.0
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104203]: [2025-04-09 09:23:31 +0300] [104203] [INFO] Listening at: unix:/var/www/Academy/gunicorn.sock (104203)
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104203]: [2025-04-09 09:23:31 +0300] [104203] [INFO] Using worker: sync
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104205]: [2025-04-09 09:23:31 +0300] [104205] [INFO] Booting worker with pid: 104205
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104206]: [2025-04-09 09:23:31 +0300] [104206] [INFO] Booting worker with pid: 104206
+Apr 09 09:23:31 4535869-ih14439 gunicorn[104207]: [2025-04-09 09:23:31 +0300] [104207] [INFO] Booting worker with pid: 104207

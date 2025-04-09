@@ -43,3 +43,27 @@ class SettingsAdmin(TranslationAdmin):
             )
         }),
     )
+
+
+@admin.register(NewsMain)
+class NewsMainAdmin(TranslationAdmin):
+    list_display = ('title',)
+    search_fields = ('title', 'description')
+
+
+@admin.register(NewsCard)
+class NewsCardAdmin(TranslationAdmin):
+    list_display = ('title', 'date')
+    search_fields = ('title', 'text')
+
+
+@admin.register(Magazine)
+class MagazineAdmin(TranslationAdmin):
+    list_display = ('title',)
+    search_fields = ('title', 'description')
+
+
+@admin.register(MagazineCard)
+class MagazineCardAdmin(TranslationAdmin):
+    list_display = ('title', 'date')
+    search_fields = ('title', 'text')

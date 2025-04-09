@@ -1,18 +1,24 @@
 from rest_framework import serializers
-from .models import ScientificJournal, ScientificJournalObject
+from .models import ScientificJournal, ScientificJournalObject, ScientificJournalWork
 
 class ScientificJournalObjectSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
+
     class Meta:
         model = ScientificJournalObject
         fields = ['id', 'image']
 
+class ScientificJournalWorkSerializer(serializers.ModelSerializer):
+    img = serializers.ImageField()
+
+    class Meta:
+        model = ScientificJournalWork
+        fields = ['name', 'description', 'img']
+
 class ScientificJournalSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField()
-    description = serializers.CharField()
-    students_full_name = serializers.CharField()
-    images = ScientificJournalObjectSerializer(many=True, read_only=True, source='scientificjournalobject_set')
+    images = ScientificJournalObjectSerializer(many=True, source='scientificjournalobject_set')
+    work = ScientificJournalWorkSerializer(many=True, source='works')
 
     class Meta:
         model = ScientificJournal
-        fields = ['id', 'title', 'description', 'students_full_name', 'number', 'email', 'link', 'images']
+        fields = ['id', 'title', 'description', 'images', 'work']

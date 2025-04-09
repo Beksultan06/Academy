@@ -13,27 +13,36 @@ class ScientificJournalObjectInline(admin.TabularInline):
     model = ScientificJournalObject
     extra = 1
 
+class ScientificJournalWorkForm(ModelForm):
+    class Meta:
+        model = ScientificJournalWork
+        fields = '__all__'
+
+class ScientificJournalWorkInline(admin.TabularInline):
+    model = ScientificJournalWork
+    extra = 1
+
+
+
 class ScientificJournalsAdmin(TranslationAdmin):
     fieldsets = (
         ('Русская версия', {
-            'fields': ['title_ru', 'description_ru', 'students_full_name_ru'],
+            'fields': ['title_ru', 'description_ru'],
         }),
         ('Кыргызская версия', {
-            'fields': ['title_ky', 'description_ky', 'students_full_name_ky'],
+            'fields': ['title_ky', 'description_ky'],
         }),
         ('Английская версия', {
-            'fields': ['title_en', 'description_en', 'students_full_name_en'],
+            'fields': ['title_en', 'description_en'],
         }),
         ('Арабская версия', {
-            'fields': ['title_ar', 'description_ar', 'students_full_name_ar'],
+            'fields': ['title_ar', 'description_ar'],
         }),
         ('Турецкая версия', {
-            'fields': ['title_tr', 'description_tr', 'students_full_name_tr'],
-        }),
-        ('Global', {
-            'fields': ['number', 'email', 'link'],
+            'fields': ['title_tr', 'description_tr'],
         }),
     )
-    inlines = [ScientificJournalObjectInline]
+    inlines = [ScientificJournalObjectInline, ScientificJournalWorkInline]
+    
 
 admin.site.register(ScientificJournal, ScientificJournalsAdmin)

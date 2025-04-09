@@ -1,5 +1,5 @@
 from modeltranslation.translator import register, TranslationOptions, translator
-from app.mainpage.models import Settings
+from app.mainpage.models import Settings, NewsMain, NewsCard, Magazine, MagazineCard
 
 @register(Settings)
 class SettingsTranslationOptions(TranslationOptions):
@@ -10,3 +10,22 @@ class SettingsTranslationOptions(TranslationOptions):
         'title_journal_of_the_islamic_academy', 'title_journals_of_partner_universities', 'title_gallery',
         'obj_date', 'title_obj', 'description_obj', 'image_obj'
     )
+
+@register(NewsMain)
+class NewsMainTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
+
+
+@register(NewsCard)
+class NewsCardTranslationOptions(TranslationOptions):
+    fields = ('title', 'text')
+
+
+@register(Magazine)
+class MagazineTranslationOptions(TranslationOptions):
+    fields = ('title', 'description')
+
+
+@register(MagazineCard)
+class MagazineCardTranslationOptions(TranslationOptions):
+    fields = ('title', 'text')

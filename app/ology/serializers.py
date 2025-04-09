@@ -5,10 +5,11 @@ class OlogySerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField()
     description = serializers.CharField()
-    number = serializers.IntegerField()
+    number = serializers.CharField()
     email = serializers.EmailField()
     link = serializers.URLField()
+    image = serializers.ImageField()
 
     class Meta:
         model = Ology
-        fields = ['id', 'title', 'description', 'number', 'email', 'link']
+        fields = ['id', 'title', 'description', 'number', 'email', 'link', 'image']

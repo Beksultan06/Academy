@@ -95,3 +95,55 @@ class Settings(models.Model):
     class Meta:
         verbose_name = 'Настройки Главной Страницы'
         verbose_name_plural = 'Настройки Главной Страницы'
+
+
+class NewsMain(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголловок')
+    description = RichTextField(verbose_name='Заголловок')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Заголовки новостей'
+        verbose_name_plural = 'Заголовки новостей'
+    
+
+class NewsCard(models.Model):
+    page = models.ForeignKey(NewsMain, on_delete=models.CASCADE, related_name='cards')
+    date = models.CharField(max_length=155,verbose_name='Заголловок')
+    title = models.CharField(max_length=255)
+    text = RichTextField(verbose_name='Заголловок')
+    image = models.ImageField(upload_to='cards/', verbose_name='Заголловок')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'новостей'
+        verbose_name_plural = 'новостей'
+
+class Magazine(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Заголловок')
+    description = RichTextField(verbose_name='Заголловок')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Заголовки Журналов'
+        verbose_name_plural = 'Заголовки Журналов'
+
+class MagazineCard(models.Model):
+    page = models.ForeignKey(Magazine, on_delete=models.CASCADE, related_name='cards')
+    date = models.CharField(max_length=155, verbose_name='Заголловок')
+    title = models.CharField(max_length=255, verbose_name='Заголловок')
+    text = RichTextField(verbose_name='Заголловок')
+    image = models.ImageField(upload_to='missions/', verbose_name='Заголловок')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Журналов'
+        verbose_name_plural = 'Журналов'
